@@ -11,7 +11,7 @@ public class VaccinationScheme {
      *
      * excuse me.
      *
-     * HEALTHY and NOTHEALTHY for to classify the patient's status and, let the user use the methods for the patient owner of this scheme.
+     * HEALTHY and NOHEALTHY for to classify the patient's status and, let the user use the methods for the patient owner of this scheme.
      * An arraylist 'vaccines' that contains all the vaccines.
      * An arraylist 'appliedvaccines' that contains all the applied vaccines that aren't anymore on the 'vaccines' array after being applied.
      * totalcost: means cost of all the vaccines together if a patient would get them all.
