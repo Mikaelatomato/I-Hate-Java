@@ -1,8 +1,10 @@
 package interfaces;
 import model.*;
-
 import java.util.Scanner;
 
+/**
+ * check my poor work at my: github.com/mikaelatomato
+ */
 public class Main {
 
     private static Scanner s = new Scanner(System.in);
@@ -12,9 +14,11 @@ public class Main {
         clinic.init();
         int option;
         int a;
-        System.out.print("\n\n| | Welcome to " + clinic.getBusiness_name() + ", you may (not) die here | |\n\n");
+        System.out.print("||------------------------------------------------------------------------------||\n");
+        System.out.print("|| Welcome to " + clinic.getBusiness_name() + ", you may (not) die here | |\n");
+        System.out.print("||------------------------------------------------------------------------------||\n\n");
         do {
-            option = menup();
+            option = menup(clinic.getBusiness_name());
             switch (option) {
                 case 1:
                     clinic.newpatient();
@@ -69,14 +73,21 @@ public class Main {
         } while (option != 0);
     }
 
-    public static int menup(){
-        System.out.print("| | | | Main Menu -  Pick an option | | | |\n");
+    /**
+     * this is the menu
+     * @return it returns a value for the switch case.
+     * you can know how much a patient has paid on the option 2, actually, you can know everything about him, if you wonder where that option is.
+     */
+    public static int menup(String c){
+        System.out.print("-------------------------------------------------------------------\n");
+        System.out.print("| | | | "+ c + " clinic menu -  Pick an option | | | |\n");
         System.out.print("1. To register a new patient\n");
         System.out.print("2. To know about a patient\n");
         System.out.print("3. To update a patient's health status\n");
         System.out.print("4. To apply a vaccine to a patient\n");
         System.out.print("5. To know the total amount gained from vaccines in this clinic\n");
         System.out.print("6. To know more about this clinic\n");
+        System.out.print("0. To leave");
         return s.nextInt();
     }
 }
