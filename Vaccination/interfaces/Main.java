@@ -18,22 +18,22 @@ public class Main {
         System.out.print("|| Welcome to " + clinic.getBusiness_name() + ", you may (not) die here | |\n");
         System.out.print("||------------------------------------------------------------------------------||\n\n");
         do {
-            option = menup(clinic.getBusiness_name());
+            option = menuP(clinic.getBusiness_name());
             switch (option) {
                 case 1:
-                    clinic.newpatient();
+                    clinic.newPatient();
                     break;
                 case 2:
-                    if (clinic.getPatientcount() < 3) {
-                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientcount()) + " more at least, please.\n\n");
+                    if (clinic.getPatientCount() < 3) {
+                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientCount()) + " more at least, please.\n\n");
                         break;
                     } else {
-                        clinic.getPatientinfo();
+                        clinic.getPatientInfo();
                         break;
                     }
                 case 3:
-                    if (clinic.getPatientcount() < 3) {
-                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientcount()) + " more, please.\n\n");
+                    if (clinic.getPatientCount() < 3) {
+                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientCount()) + " more, please.\n\n");
                         break;
                     } else {
                         clinic.displayPatients();
@@ -49,8 +49,8 @@ public class Main {
                     }
                     break;
                 case 4:
-                    if (clinic.getPatientcount() < 3) {
-                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientcount()) + " more, please.\n\n");
+                    if (clinic.getPatientCount() < 3) {
+                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientCount()) + " more, please.\n\n");
                         break;
                     } else {
                         clinic.displayPatients();
@@ -60,11 +60,11 @@ public class Main {
                         break;
                     }
                 case 5:
-                    if (clinic.getPatientcount() < 3) {
-                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientcount()) + " more, please.\n\n");
+                    if (clinic.getPatientCount() < 3) {
+                        System.out.print("This clinic needs at least 3 patients to work, register " + (3 - clinic.getPatientCount()) + " more, please.\n\n");
                         break;
                     } else {
-                        System.out.print("This clinic has gained a total amount of: " + clinic.getTotalgained() + " from vaccines.\n\n");
+                        System.out.print("This clinic has gained a total amount of: " + clinic.getTotalGained() + " from vaccines.\n\n");
                         break;
                     }
                 case 6:
@@ -78,7 +78,7 @@ public class Main {
      * @return it returns a value for the switch case.
      * you can know how much a patient has paid on the option 2, actually, you can know everything about him, if you wonder where that option is.
      */
-    public static int menup(String c){
+    public static int menuP(String c){
         System.out.print("-------------------------------------------------------------------\n");
         System.out.print("| | | | "+ c + " clinic menu -  Pick an option | | | |\n");
         System.out.print("1. To register a new patient\n");

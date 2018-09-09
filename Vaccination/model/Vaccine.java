@@ -53,7 +53,7 @@ public class Vaccine {
      *
      * @return the required age for this vaccine.
      */
-    public int getRequiredage(){
+    public int getRequiredAge(){
         return requiredage;
     }
 

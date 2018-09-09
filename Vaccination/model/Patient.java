@@ -16,7 +16,7 @@ public class Patient {
     private int stratum;
     private boolean compensation_box;
     private static Scanner s = new Scanner(System.in);
-    private VaccinationScheme vaccinationScheme;
+    private VaccinationScheme vaccinationscheme;
 
 
     /**
@@ -78,7 +78,7 @@ public class Patient {
                 System.out.print("invalid option\n");
             }
         }
-        this.vaccinationScheme = new VaccinationScheme(this.stratum, this.health, this.age, this.compensation_box);
+        this.vaccinationscheme = new VaccinationScheme(this.stratum, this.health, this.age, this.compensation_box);
         System.out.print("Patient registered successfully\n\n");
     }
 
@@ -113,7 +113,7 @@ public class Patient {
      */
 
     public VaccinationScheme getVaccinationScheme(){
-        return this.vaccinationScheme;
+        return this.vaccinationscheme;
     }
 
     /**

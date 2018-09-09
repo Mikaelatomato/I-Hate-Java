@@ -93,7 +93,7 @@ public class VaccinationScheme {
         } else {
             for (Vaccine v : this.vaccines) {
                 for (int i = 0; i < vaccines.size(); i++)
-                    if ((this.age >= v.getRequiredage() && this.health == HEALTHY) && vaccines.get(i) == v) {
+                    if ((this.age >= v.getRequiredAge() && this.health == HEALTHY) && vaccines.get(i) == v) {
                         System.out.println("At index " + i + " The vaccine: " + v.getName() + " can be applied for a price of: " + v.getPrice() + "\n");
                         System.out.println("-------------------------------------------------------------------------------------------------------\n");
                         this.totalcost += v.getPrice();
@@ -255,7 +255,7 @@ public class VaccinationScheme {
      *
      * @return how much has been payed.
      */
-    public float getTotalpayed(){
+    public float getTotalPayed(){
         return totalpayed;
     }
 }

@@ -46,7 +46,7 @@ public class Clinic {
      * adds a new patient to the clinic :)
      * it's limited to 5 patients.
      */
-    public void newpatient(){
+    public void newPatient(){
         if (this.patientcount >= 0 && this.patientcount <= 4){
             this.patients.add(new Patient());
             this.patients.get(patientcount).getVaccinationScheme().init();
@@ -62,7 +62,7 @@ public class Clinic {
     public void calculateTotalGain(){
         totalgained = 0;
         for (Patient p : patients){
-            totalgained += p.getVaccinationScheme().getTotalpayed();
+            totalgained += p.getVaccinationScheme().getTotalPayed();
         }
     }
 
@@ -70,7 +70,7 @@ public class Clinic {
      * just
      * @return the total gained amount from vaccines
      */
-    public float getTotalgained(){
+    public float getTotalGained(){
         calculateTotalGain();
         return totalgained;
     }
@@ -99,7 +99,7 @@ public class Clinic {
      * the method used for getting all the information about a patient
      * here again, i use "a" for index, and "b" for option.
      */
-    public void getPatientinfo(){
+    public void getPatientInfo(){
         displayPatients();
         System.out.print ("About which patient (select it by index) would you like to know?: ");
         int a = s.nextInt();
@@ -162,7 +162,7 @@ public class Clinic {
      *
      * @return the patientcount which keeps track of how many patients are here.
      */
-    public int getPatientcount(){
+    public int getPatientCount(){
         return patientcount;
     }
 }
