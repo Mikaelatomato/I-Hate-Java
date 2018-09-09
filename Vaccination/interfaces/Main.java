@@ -87,7 +87,7 @@ public class Main {
         System.out.print("4. To apply a vaccine to a patient\n");
         System.out.print("5. To know the total amount gained from vaccines in this clinic\n");
         System.out.print("6. To know more about this clinic\n");
-        System.out.print("0. To leave");
+        System.out.print("0. To leave\n");
         return s.nextInt();
     }
 }

@@ -17,6 +17,8 @@ public class VaccinationScheme {
      * totalcost: means cost of all the vaccines together if a patient would get them all.
      * totalpayed: how much has a patient payed?
      * stratum, health, age: these ones are from the patient, and are very required here as you will see.
+     * lastly, possible is used to keep track of how many vaccines had been applied and how many else can be applied, without this, the code wouldn't know what to do
+     * when all the displayed vaccines were applied.
      */
 
     private ArrayList<Vaccine> vaccines = new ArrayList<Vaccine>();
@@ -29,6 +31,7 @@ public class VaccinationScheme {
     private int stratum;
     private int health;
     private int age;
+    private int possible = 0;
     private Scanner s = new Scanner(System.in);
 
     /**
@@ -94,6 +97,9 @@ public class VaccinationScheme {
                         System.out.println("At index " + i + " The vaccine: " + v.getName() + " can be applied for a price of: " + v.getPrice() + "\n");
                         System.out.println("-------------------------------------------------------------------------------------------------------\n");
                         this.totalcost += v.getPrice();
+                        if (possible < i ){
+                            possible += 1;
+                        }
                     }
             }
             System.out.print("The total cost for all the applicable vaccines is: " + totalcost + "\n\n");
@@ -199,6 +205,10 @@ public class VaccinationScheme {
      */
     public void applyVaccine() {
         possibleVaccines();
+        if (possible + 1 == appliedvaccines.size()){
+            System.out.print("There aren't more vaccines to be applied");
+            return;
+        }
         while (true) {
             if (this.health == HEALTHY){
                 System.out.print("Which vaccine do you wanna apply to the patient?: ");
