@@ -57,19 +57,25 @@ public class VaccinationScheme {
      */
 
     public void init() {
-        this.vaccines.add(new Vaccine("Tuberculosis B.C.G                    || ", 0));
-        this.vaccines.add(new Vaccine("Hepatitis B                    || ", 0));
-        this.vaccines.add(new Vaccine("PRIMERA DOSIS: Polio (Oral - IM)                    || ", 2));
-        this.vaccines.add(new Vaccine("PRIMERA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ", 2));
-        this.vaccines.add(new Vaccine("PRIMERA DOSIS: Rotavirus                    || ", 2));
-        this.vaccines.add(new Vaccine("PRIMERA DOSIS: Neumococo                    || ", 2));
-        this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Polio (oral - IM)                    || ", 4));
-        this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ", 4));
-        this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Rotavirus                    || ", 4));
-        this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Neumococo                    || ", 4));
-        this.vaccines.add(new Vaccine("TERCERA DOSIS: Polio (Oral - IM)                    || ", 6));
-        this.vaccines.add(new Vaccine("TERCERA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ", 6));
-        this.vaccines.add(new Vaccine("Influenza                                        || ", 6));
+        this.vaccines.add(new Vaccine("DOSIS UNICA: Tuberculosis B.C.G || ", 0));
+        this.vaccines.add(new Vaccine("DOSIS UNICA: Hepatitis B || ", 0));
+        if (this.age >= 2){
+            this.vaccines.add(new Vaccine("PRIMERA DOSIS: Polio (Oral - IM) || ", 2));
+            this.vaccines.add(new Vaccine("PRIMERA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ", 2));
+            this.vaccines.add(new Vaccine("PRIMERA DOSIS: Rotavirus || ", 2));
+            this.vaccines.add(new Vaccine("PRIMERA DOSIS: Neumococo || ", 2));
+            if (this.age >=4){
+                this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Polio (oral - IM) || ", 4));
+                this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ", 4));
+                this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Rotavirus || ", 4));
+                this.vaccines.add(new Vaccine("SEGUNDA DOSIS: Neumococo || ", 4));
+                if (this.age == 6){
+                    this.vaccines.add(new Vaccine("TERCERA DOSIS: Polio (Oral - IM) || ", 6));
+                    this.vaccines.add(new Vaccine("TERCERA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ", 6));
+                    this.vaccines.add(new Vaccine("PRIMERA DOSIS: Influenza || ", 6));
+                }
+            }
+        }
         setPrices();
     }
 
@@ -125,15 +131,15 @@ public class VaccinationScheme {
      */
     public void setPrices() {
         for (Vaccine v : this.vaccines) {
-            if (v.getName().equals("Tuberculosis B.C.G                    || ")) {
+            if (v.getName().equals("DOSIS UNICA: Tuberculosis B.C.G || ")) {
                 v.updatePrice(0);
-            } else if (v.getName().equals("Hepatitis B                    || ")) {
+            } else if (v.getName().equals("DOSIS UNICA: Hepatitis B || ")) {
                 v.updatePrice(0);
-            } else if (v.getName().equals("PRIMERA DOSIS: Polio (Oral - IM)                    || ")) {
+            } else if (v.getName().equals("PRIMERA DOSIS: Polio (Oral - IM) || ")) {
                 v.updatePrice(0);
             } else if (v.getName().equals("PRIMERA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ")) {
                 v.updatePrice(0);
-            } else if (v.getName().equals("PRIMERA DOSIS: Neumococo                    || ")) {
+            } else if (v.getName().equals("PRIMERA DOSIS: Neumococo || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
                     v.updatePrice(94000);
                 } else if (this.stratum == 3 || this.stratum == 4) {
@@ -141,7 +147,7 @@ public class VaccinationScheme {
                 } else if (this.stratum == 5 || this.stratum == 6) {
                     v.updatePrice(194000);
                 }
-            } else if (v.getName().equals("PRIMERA DOSIS: Rotavirus                    || ")) {
+            } else if (v.getName().equals("PRIMERA DOSIS: Rotavirus || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
                     v.updatePrice(20000);
                 } else if (this.stratum == 3 || this.stratum == 4) {
@@ -149,7 +155,7 @@ public class VaccinationScheme {
                 } else if (this.stratum == 5 || this.stratum == 6) {
                     v.updatePrice(110000);
                 }
-            } else if (v.getName().equals("SEGUNDA DOSIS: Polio (Oral - IM)                    || ")) {
+            } else if (v.getName().equals("SEGUNDA DOSIS: Polio (Oral - IM) || ")) {
                 v.updatePrice(0);
             } else if (v.getName().equals("SEGUNDA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
@@ -159,7 +165,7 @@ public class VaccinationScheme {
                 } else if (this.stratum == 5 || this.stratum == 6) {
                     v.updatePrice(35000);
                 }
-            } else if (v.getName().equals("SEGUNDA DOSIS: Neumococo                    || ")) {
+            } else if (v.getName().equals("SEGUNDA DOSIS: Neumococo || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
                     v.updatePrice(94000);
                 } else if (this.stratum == 3 || this.stratum == 4) {
@@ -167,7 +173,7 @@ public class VaccinationScheme {
                 } else if (this.stratum == 5 || this.stratum == 6) {
                     v.updatePrice(194000);
                 }
-            } else if (v.getName().equals("SEGUNDA DOSIS: Rotavirus                    || ")) {
+            } else if (v.getName().equals("SEGUNDA DOSIS: Rotavirus || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
                     v.updatePrice(15000);
                 } else if (this.stratum == 3 || this.stratum == 4) {
@@ -175,13 +181,13 @@ public class VaccinationScheme {
                 } else if (this.stratum == 5 || this.stratum == 6) {
                     v.updatePrice(105000);
                 }
-            } else if (v.getName().equals("Influenza                                        || ")) {
+            } else if (v.getName().equals("PRIMERA DOSIS: Influenza || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
                     v.updatePrice(0);
                 } else if (this.stratum >= 3 && this.stratum <= 6) {
                     v.updatePrice(50000);
                 }
-            } else if (v.getName().equals("TERCERA DOSIS: Polio (Oral - IM)                    || ")) {
+            } else if (v.getName().equals("TERCERA DOSIS: Polio (Oral - IM) || ")) {
                 v.updatePrice(0);
             } else if (v.getName().equals("TERCERA DOSIS: Pentavalente: Hepatitis B, Haemophilus,\nInfluenzae tipo B y Difteria, Tosferina, Tetano (DPT) || ")) {
                 if (this.stratum == 1 || this.stratum == 2) {
