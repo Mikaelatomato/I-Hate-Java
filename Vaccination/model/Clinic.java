@@ -103,36 +103,39 @@ public class Clinic {
         displayPatients();
         System.out.print ("About which patient (select it by index) would you like to know?: ");
         int a = s.nextInt();
-        String h;
-        if (patients.get(a).getHealth() == 1){
-            h = "healthy";
+        if (a > patientcount - 1 ){
+            getPatientInfo();
         } else {
-           h = "no healthy";
-        }
-        String c;
-        if (patients.get(a).isCompensation_box()){
-            c = "yes";
-        } else {
-            c = "no";
-        }
-        System.out.print ("Patient's name: " + patients.get(a).getName() + "\nPatient's age: " + patients.get(a).getAge() +
-                "\nPatient's stratum: "+ patients.get(a).getStratum() + "\nPatient's health status: " + h + "\nCompensation box: " + c + "\n\n");
-        System.out.print("What else would you like to know about him: \n1.Vaccines that can be applied.\n2.Applied vaccines\n3.To leave\n");
-        int b = s.nextInt();
-        while (true){
-            if (b == 1){
-                patients.get(a).getVaccinationScheme().possibleVaccines();
-                break;
-            } else if (b == 2){
-                patients.get(a).getVaccinationScheme().appliedVaccines();
-                break;
-            } else if (b == 3){
-                break;
+            String h;
+            if (patients.get(a).getHealth() == 1) {
+                h = "healthy";
             } else {
-                System.out.print("Select a valid option\n ");
+                h = "no healthy";
+            }
+            String c;
+            if (patients.get(a).isCompensation_box()) {
+                c = "yes";
+            } else {
+                c = "no";
+            }
+            System.out.print("Patient's name: " + patients.get(a).getName() + "\nPatient's age: " + patients.get(a).getAge() +
+                    "\nPatient's stratum: " + patients.get(a).getStratum() + "\nPatient's health status: " + h + "\nCompensation box: " + c + "\n\n");
+            System.out.print("What else would you like to know about him: \n1.Vaccines that can be applied.\n2.Applied vaccines\n3.To leave\n");
+            int b = s.nextInt();
+            while (true) {
+                if (b == 1) {
+                    patients.get(a).getVaccinationScheme().possibleVaccines();
+                    break;
+                } else if (b == 2) {
+                    patients.get(a).getVaccinationScheme().appliedVaccines();
+                    break;
+                } else if (b == 3) {
+                    break;
+                } else {
+                    System.out.print("Select a valid option\n ");
+                }
             }
         }
-
     }
 
     /**

@@ -39,12 +39,17 @@ public class Main {
                         clinic.displayPatients();
                         System.out.print("\nSelect a patient to update its health status: ");
                         a = s.nextInt();
-                        clinic.getPatient(a).updateHealth();
-                        System.out.print("The patient is ");
-                        if (clinic.getPatient(a).getHealth() == 1) {
-                            System.out.print("healthy now\n\n");
+                        if (a > clinic.getPatientCount() - 1) {
+                            System.out.print("\nThat patient doesn't exist, comeback and try again, select it by index\n");
+                            continue;
                         } else {
-                            System.out.print("not healthy now\n\n");
+                            clinic.getPatient(a).updateHealth();
+                            System.out.print("The patient is ");
+                            if (clinic.getPatient(a).getHealth() == 1) {
+                                System.out.print("healthy now\n\n");
+                            } else {
+                                System.out.print("not healthy now\n\n");
+                            }
                         }
                     }
                     break;
@@ -56,8 +61,13 @@ public class Main {
                         clinic.displayPatients();
                         System.out.print("\nSelect a patient to apply a vaccine: ");
                         a = s.nextInt();
-                        clinic.getPatient(a).getVaccinationScheme().applyVaccine();
-                        break;
+                        if (a > clinic.getPatientCount() - 1){
+                            System.out.print("\nThat patient doesn't exist, comeback and try again, select it by index\n");
+                            continue;
+                        } else {
+                            clinic.getPatient(a).getVaccinationScheme().applyVaccine();
+                            break;
+                        }
                     }
                 case 5:
                     if (clinic.getPatientCount() < 3) {

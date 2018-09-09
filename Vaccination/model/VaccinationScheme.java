@@ -220,22 +220,24 @@ public class VaccinationScheme {
                 System.out.print("\nWhich vaccine do you wanna apply to the patient?: ");
                 int a = s.nextInt();
                 int b = 0;
-                for (Vaccine v : vaccines){
-                    if ((vaccines.get(a).getName().substring(0, 13).equals("SEGUNDA DOSIS") && (vaccines.get(a).getName().substring(16, 20).equals(v.getName().substring(16, 20)) && v.getName().substring(0, 13).equals("PRIMERA DOSIS"))
-                            || (vaccines.get(a).getName().substring(0, 13).equals("TERCERA DOSIS") && vaccines.get(a).getName().substring(16, 20).equals(v.getName().substring(16, 20))) && v.getName().substring(0, 13).equals("SEGUNDA DOSIS"))){
-                        b = 1;
-                    }
-                }
-                if (a >= 0 && a <= 12 && b == 0){
-                    appliedvaccines.add(getVaccines().get(a));
-                    totalpayed += vaccines.get(a).getPrice();
-                    vaccines.remove(a);
-                    System.out.print("The vaccine was successfully applied\n\n");
-                    break;
-                } else if (a < 0 || a > 13 && b == 0) {
+                if (a < 0 || a > possible){
                     System.out.print("Select the vaccine by index, look at it again :)\n");
-                } else if (b == 1){
-                    System.out.print("\nThat vaccine can't be applied, you must apply the previous dose first\nalso make sure that the vaccine select is listed above\n");
+                } else {
+                    for (Vaccine v : vaccines){
+                        if ((vaccines.get(a).getName().substring(0, 13).equals("SEGUNDA DOSIS") && (vaccines.get(a).getName().substring(16, 20).equals(v.getName().substring(16, 20)) && v.getName().substring(0, 13).equals("PRIMERA DOSIS"))
+                                || (vaccines.get(a).getName().substring(0, 13).equals("TERCERA DOSIS") && vaccines.get(a).getName().substring(16, 20).equals(v.getName().substring(16, 20))) && v.getName().substring(0, 13).equals("SEGUNDA DOSIS"))){
+                            b = 1;
+                        }
+                    }
+                    if (b == 0){
+                        appliedvaccines.add(getVaccines().get(a));
+                        totalpayed += vaccines.get(a).getPrice();
+                        vaccines.remove(a);
+                        System.out.print("The vaccine was successfully applied\n\n");
+                        break;
+                    } else {
+                        System.out.print("\nThat vaccine can't be applied, you must apply the previous dose first\nalso make sure that the vaccine select is listed above\n");
+                    }
                 }
             } else {
                 System.out.print("The patient isn't healthy, so no vaccine can be applied.\n\n");
