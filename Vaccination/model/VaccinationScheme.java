@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class VaccinationScheme {
     /**
      * this is the exciting class for sure.
-     * before moving on, i've been wondering, is there someone else that writes code better and faster than me on the class? if you know, let me know.
      * and now i wonder, who qualifies, checks these works? our pretty monitor (instructor) or is it always the teacher?
      * also, will we get the grades of the 1st lab before this one grades? who knows.
      *
