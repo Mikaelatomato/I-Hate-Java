@@ -80,7 +80,7 @@ public class AlphabetSoup {
         while (alphabetSoup.size() < getSize()) {
             alphabetSoup.add(new ArrayList<String>());
         }
-        for (ArrayList v : alphabetSoup) {
+        for (ArrayList<String> v : alphabetSoup) {
             while (v.size() < getSize()) {
                 v.add(" ");
             }

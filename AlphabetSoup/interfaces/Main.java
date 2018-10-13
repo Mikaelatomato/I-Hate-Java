@@ -41,20 +41,47 @@ public class Main{
 
     public ArrayList<Integer> showMenuOptions(){
         ArrayList<Integer> options = new ArrayList<>();
-        System.out.println("Choose the level you want to play ");
-        System.out.println("1. Basic Level");
-        System.out.println("2. Intermediate Level");
-        System.out.println("3. Advanced Level ");
-        int mode =sc.nextInt();
-        options.add(mode);
-        System.out.println("What kind of soup would you like to play ");
-        System.out.println("1. Animals");
-        System.out.println("2. Plants");
-        System.out.println("3. Culture");
-        System.out.println("4. Sports");
-        System.out.println("5. Books");
-        int type = sc.nextInt();
-        options.add(type);
+        while (true){
+            try{
+                System.out.println("Choose the level you want to play ");
+                System.out.println("1. Basic Level");
+                System.out.println("2. Intermediate Level");
+                System.out.println("3. Advanced Level ");
+                int mode =sc.nextInt();
+                if (mode > 0 && mode <= 3){
+                    options.add(mode);
+                    break;
+                } else {
+                    System.out.print("That level doesn't exist, try again.\n\n");
+                }
+
+            } catch (Exception e){
+                System.out.print("Invalid option.\n\n");
+                sc.next();
+            }
+        }
+        while (true){
+            try{
+                System.out.println("What kind of soup would you like to play ");
+                System.out.println("1. Animals");
+                System.out.println("2. Plants");
+                System.out.println("3. Culture");
+                System.out.println("4. Sports");
+                System.out.println("5. Books");
+                int type = sc.nextInt();
+                if (type > 0 && type <=5 ){
+                    options.add(type);
+                    break;
+                } else {
+                    System.out.print("That kind of soup doesn't exist, try again.\n\n");
+                }
+
+            } catch (Exception e){
+                System.out.print("Invalid option.\n\n");
+                sc.next();
+            }
+
+        }
         return options;
 
     }
