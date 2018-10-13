@@ -23,6 +23,7 @@ public class Main{
     }
 
     public void menu(){
+        userSolutions = new ArrayList<>();
         welcome();
         whilePlaying(showMenuOptions());
     }
@@ -54,7 +55,6 @@ public class Main{
         System.out.println("5. Books");
         int type = sc.nextInt();
         options.add(type);
-        System.out.print("This game's number in the world:  ");
         return options;
 
     }
@@ -69,20 +69,29 @@ public class Main{
         System.out.print("\n");
 
         while (a.getPartialSolutions().size() != 0){
-            System.out.print("\nFor now you have found the next words: " + userSolutions + "\n" + (a.getPartialSolutions().size() - userSolutions.size()) + " more to go!! | | write 's' to surrender or 'r' to reload");
+            System.out.print("\nFor now you have found the next words: " + userSolutions + "\n" + a.getPartialSolutions().size() + " more to go!! | | write 's' to surrender or 'r' to reload");
             System.out.print("\nWrite your answers here: ");
             String userguess = sc.next();
             if (a.getPartialSolutions().contains(userguess)){
                 userSolutions.add(userguess);
                 a.getPartialSolutions().remove(userguess);
             } else if (userguess.equals("s")){
-                System.out.print("The words in soup were the next ones: " + a.getPartialSolutions());
+                System.out.print("The remaining words in soup were the next ones: " + a.getPartialSolutions());
                 System.out.print("\n\nWrite anything to leave.");
                 sc.next();
                 System.out.print("See you next time ;)");
                 System.exit(0);
             } else if (userguess.equals("r")){
                 menu();
+            }
+            } if (a.getPartialSolutions().size() == 0){
+            System.out.print("\n\n¡¡¡¡¡¡¡¡¡¡¡¡YOU HAVE WON!!!!!!!!!!!!\n\n");
+            System.out.print("Press 'r' to reload a new game, or press 'l' to leave");
+            String useroption = sc.next();
+            if (useroption.equals("r")){
+                menu();
+            } else if (useroption.equals("l")){
+                System.exit(0);
             }
         }
     }

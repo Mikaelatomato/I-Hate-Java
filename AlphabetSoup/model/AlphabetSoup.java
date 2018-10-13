@@ -77,32 +77,12 @@ public class AlphabetSoup {
         ADVANCED.add(20);
         ADVANCED.add(20);
 
-        if (this.difficulty.equals("BASIC")) {
-            while (alphabetSoup.size() < getSize()) {
-                alphabetSoup.add(new ArrayList<String>());
-            }
-            for (ArrayList v : alphabetSoup) {
-                while (v.size() < getSize()) {
-                    v.add(" ");
-                }
-            }
-        } else if (this.difficulty.equals("INTERMEDIUM")) {
-            while (alphabetSoup.size() < getSize()) {
-                alphabetSoup.add(new ArrayList<>());
-            }
-            for (ArrayList v : alphabetSoup) {
-                while (v.size() < getSize()) {
-                    v.add(" ");
-                }
-            }
-        } else if (this.difficulty.equals("ADVANCED")) {
-            while (alphabetSoup.size() < getSize()) {
-                alphabetSoup.add(new ArrayList<>());
-            }
-            for (ArrayList v : alphabetSoup) {
-                while (v.size() < getSize()) {
-                    v.add(" ");
-                }
+        while (alphabetSoup.size() < getSize()) {
+            alphabetSoup.add(new ArrayList<String>());
+        }
+        for (ArrayList v : alphabetSoup) {
+            while (v.size() < getSize()) {
+                v.add(" ");
             }
         }
 
@@ -126,17 +106,18 @@ public class AlphabetSoup {
 
         int l = 0;
         int w = 0;
-
-        System.out.print("\n\n");
-
-        while (l < getSize()) {
-            System.out.print(alphabetSoup.get(l).get(w) + "  ");
+        System.out.print("\n");
+        System.out.print("||  ");
+        while (l < getSize()) { System.out.print(alphabetSoup.get(l).get(w) + "  ");
             w++;
             if (w % getSize() == 0) {
                 l++;
                 w = 0;
+                System.out.print("||");
                 System.out.print("\n");
-
+                if (l < 10){
+                    System.out.print("||  ");
+                }
             }
         }
     }
@@ -213,7 +194,7 @@ public class AlphabetSoup {
                     limity = word.length() + row;
 
 
-                    if (limity <= alphabetSoup.size() && row - word.length() >= 0) {
+                    if (limity <= alphabetSoup.size()) {
                         ArrayList<Character> realword = new ArrayList<Character>();
                         for (int i = 0; i < word.length(); i++) {
                             realword.add(word.charAt(i));
@@ -235,10 +216,10 @@ public class AlphabetSoup {
 
                     int r = random.nextInt(dictionary.size());
                     String word = dictionary.get(r);
-                    limity = word.length() + row;
+                    limity = row - word.length();
 
 
-                    if (limity <= alphabetSoup.size() && row - word.length() >= 0) {
+                    if (limity >= 0) {
                         ArrayList<Character> realword = new ArrayList<Character>();
                         for (int i = 0; i < word.length(); i++) {
                             realword.add(word.charAt(i));
@@ -246,7 +227,6 @@ public class AlphabetSoup {
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
-                                System.out.print(row);
                                 row--;
                                 ward++;
                             }
@@ -261,11 +241,10 @@ public class AlphabetSoup {
 
                     int r = random.nextInt(dictionary.size());
                     String word = dictionary.get(r);
-                    limity = word.length() + row;
+                    limity = row - word.length();
                     limitx = col + word.length();
 
-
-                    if ((limity <= alphabetSoup.size() && row - word.length() >= 0) && limitx < alphabetSoup.get(0).size()) {
+                    if ((limity >= 0 && limitx < alphabetSoup.get(0).size())) {
                         ArrayList<Character> realword = new ArrayList<Character>();
                         for (int i = 0; i < word.length(); i++) {
                             realword.add(word.charAt(i));
@@ -288,11 +267,11 @@ public class AlphabetSoup {
 
                     int r = random.nextInt(dictionary.size());
                     String word = dictionary.get(r);
-                    limity = word.length() + row;
+                    limity = row - word.length();
                     limitx = col - word.length();
 
 
-                    if ((limity <= alphabetSoup.size() && row - word.length() >= 0) && limitx >= 0) {
+                    if (limity >= 0  && limitx >= 0) {
                         ArrayList<Character> realword = new ArrayList<Character>();
                         for (int i = 0; i < word.length(); i++) {
                             realword.add(word.charAt(i));
@@ -300,7 +279,6 @@ public class AlphabetSoup {
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
-                                System.out.print(row);
                                 row--;
                                 col--;
                                 ward++;

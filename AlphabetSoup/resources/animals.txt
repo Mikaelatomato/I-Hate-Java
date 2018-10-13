@@ -35,8 +35,8 @@ toad
 crow
 civet
 seal
-whale 
-dormouse 
+whale
+dormouse
 anteater
 monkey
 yak
@@ -58,7 +58,7 @@ marmoset
 mouse
 shrew
 chinchilla
-canary 
+canary
 basilisk
 sloth
 tiger
