@@ -29,6 +29,7 @@ public class Main{
     }
 
     public void welcome(){
+
         System.out.println("********************************************************************************************************************\n");
         System.out.println("*    WWWW                  WWWW    EEEEEEEE   LLL        CCCCCCCC    OOOOOOOOO    MMMMMM     MMMMMM    EEEEEEEE    *");
         System.out.println("*     WWW                 WWW      EEE        LLL        CCC         OOO   OOO    MMM  MMM MMM  MMM    EEE         *");
@@ -62,7 +63,7 @@ public class Main{
         }
         while (true){
             try{
-                System.out.println("What kind of soup would you like to play ");
+                System.out.println("What kind of soup would would you like to play? ");
                 System.out.println("1. Animals");
                 System.out.println("2. Plants");
                 System.out.println("3. Culture");
@@ -103,6 +104,7 @@ public class Main{
                 userSolutions.add(userguess);
                 a.getPartialSolutions().remove(userguess);
             } else if (userguess.equals("s")){
+                System.out.print("\n\nYou have surrendered :(\n");
                 System.out.print("The remaining words in soup were the next ones: " + a.getPartialSolutions());
                 System.out.print("\n\nWrite anything to leave.");
                 sc.next();

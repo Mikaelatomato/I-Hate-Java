@@ -3,12 +3,16 @@ package model;
 import java.io.*;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AlphabetSoup {
 
-    private final static ArrayList<Integer> BASIC = new ArrayList<>();
-    private final static ArrayList<Integer> INTERMEDIUM = new ArrayList<>();
-    private final static ArrayList<Integer> ADVANCED = new ArrayList<>();
+    private final static ArrayList<Integer> BASIC = new ArrayList<>(Arrays.asList(5, 10));
+    private final static ArrayList<Integer> INTERMEDIUM = new ArrayList<>(Arrays.asList(10, 15));
+    private final static ArrayList<Integer> ADVANCED = new ArrayList<>(Arrays.asList(20,20));
+    private final static String BASICD = "BASIC";
+    private final static String INTERMEDIUMD = "INTERMEDIUM";
+    private final static String ADVANCEDD = "ADVANCED";
     private ArrayList<String> partialSolutions = new ArrayList<>();
     private ArrayList<ArrayList<String>> alphabetSoup = new ArrayList<ArrayList<String>>();
     private String difficulty;
@@ -20,11 +24,11 @@ public class AlphabetSoup {
     public AlphabetSoup(int mode, int type) {
 
         if (mode == 1) {
-            this.difficulty = "BASIC";
+            this.difficulty = BASICD;
         } else if (mode == 2) {
-            this.difficulty = "INTERMEDIUM";
+            this.difficulty = INTERMEDIUMD;
         } else if (mode == 3) {
-            this.difficulty = "ADVANCED";
+            this.difficulty = ADVANCEDD;
         }
 
         if (type == 1) {
@@ -42,11 +46,11 @@ public class AlphabetSoup {
 
     public int getSize() {
 
-        if (this.difficulty.equals("BASIC")) {
+        if (this.difficulty.equals(BASICD)) {
             return BASIC.get(1);
-        } else if (this.difficulty.equals("INTERMEDIUM")) {
+        } else if (this.difficulty.equals(INTERMEDIUMD)) {
             return INTERMEDIUM.get(1);
-        } else if (this.difficulty.equals("ADVANCED")) {
+        } else if (this.difficulty.equals(ADVANCEDD)) {
             return ADVANCED.get(1);
         } else {
             return 0;
@@ -56,11 +60,11 @@ public class AlphabetSoup {
 
     public int getRequiredWords() {
 
-        if (this.difficulty.equals("BASIC")) {
+        if (this.difficulty.equals(BASICD)) {
             return BASIC.get(0);
-        } else if (this.difficulty.equals("INTERMEDIUM")) {
+        } else if (this.difficulty.equals(INTERMEDIUMD)) {
             return INTERMEDIUM.get(0);
-        } else if (this.difficulty.equals("ADVANCED")) {
+        } else if (this.difficulty.equals(ADVANCEDD)) {
             return ADVANCED.get(0);
         } else {
             return 0;
@@ -70,15 +74,8 @@ public class AlphabetSoup {
 
     public void init() {
 
-        BASIC.add(5);
-        BASIC.add(10);
-        INTERMEDIUM.add(10);
-        INTERMEDIUM.add(15);
-        ADVANCED.add(20);
-        ADVANCED.add(20);
-
         while (alphabetSoup.size() < getSize()) {
-            alphabetSoup.add(new ArrayList<String>());
+            alphabetSoup.add(new ArrayList<>());
         }
         for (ArrayList<String> v : alphabetSoup) {
             while (v.size() < getSize()) {
@@ -86,9 +83,12 @@ public class AlphabetSoup {
             }
         }
 
+        BufferedReader br = null;
+        BufferedReader br2 = null;
+
         try {
-            BufferedReader br = new BufferedReader(new FileReader(type));
-            BufferedReader br2 = new BufferedReader(new FileReader("resources/abc.txt"));
+            br = new BufferedReader(new FileReader(type));
+            br2 = new BufferedReader(new FileReader("resources/abc.txt"));
             String line;
             String line2;
             while ((line = br.readLine()) != null) {
@@ -99,6 +99,17 @@ public class AlphabetSoup {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (br != null){
+                    br.close();
+                }
+                if (br2 != null){
+                    br.close();
+                }
+            } catch (IOException io){
+                io.printStackTrace();
+            }
         }
     }
 
@@ -115,7 +126,7 @@ public class AlphabetSoup {
                 w = 0;
                 System.out.print("||");
                 System.out.print("\n");
-                if (l < 10){
+                if (l < getSize()){
                     System.out.print("||  ");
                 }
             }
@@ -128,225 +139,419 @@ public class AlphabetSoup {
         int limity;
         int row;
         int col;
-        int ward = 0;
+        ArrayList<ArrayList<Integer>> samepos = new ArrayList<>();
+        int wardremove = 0;
+        String ward = new String();
         int randomchoice;
+        String word = dictionary.get(random.nextInt(dictionary.size()));
+        ArrayList<Character> realword = new ArrayList<>();
+
+        for (int i = 0; i < word.length(); i++) {
+            realword.add(word.charAt(i));
+        }
 
         try {
             while (partialSolutions.size() < getRequiredWords()) {
 
                 row = random.nextInt(alphabetSoup.size());
                 col = random.nextInt(alphabetSoup.get(0).size());
-
                 randomchoice = random.nextInt(8) + 1;
 
                 if (randomchoice == 1) { // horizontal to the right
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limitx = col + word.length();
 
                     if (limitx <= alphabetSoup.get(0).size()) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 col++;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                col--;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
+
                 } else if (randomchoice == 2) { // horizontal to the left
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limitx = col - word.length();
 
                     if (limitx >= 0) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
+
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 col--;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                col++;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
+
                 } else if (randomchoice == 3) { // vertical down
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limity = word.length() + row;
 
-
                     if (limity <= alphabetSoup.size()) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 row++;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                row--;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
+
                 } else if (randomchoice == 4) { // vertical up
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limity = row - word.length();
 
-
                     if (limity >= 0) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 row--;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                row++;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
                     }
-                    setWords();
+
                 } else if (randomchoice == 5) { // diag right up
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limity = row - word.length();
                     limitx = col + word.length();
 
                     if ((limity >= 0 && limitx < alphabetSoup.get(0).size())) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 row--;
                                 col++;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                row++;
+                                col--;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
+
                 } else if (randomchoice == 6) { // diag left up
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limity = row - word.length();
                     limitx = col - word.length();
 
+                    if (limity >= 0 && limitx >= 0) {
 
-                    if (limity >= 0  && limitx >= 0) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 row--;
                                 col--;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                row++;
+                                col++;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
+
                 } else if (randomchoice == 7) { // diag down right
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limity = word.length() + row;
                     limitx = col + word.length();
 
-
                     if ((limity <= alphabetSoup.size() && limitx <= alphabetSoup.get(0).size())) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 row++;
                                 col++;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else { while (wardremove != 0) {
+                            row--;
+                            col--;
+                            boolean flag = false;
+                            if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                for (ArrayList<Integer> v : samepos) {
+                                    if (v.get(0) == row && v.get(1) == col) {
+                                        flag = true;
+                                        if (flag){
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!flag) {
+                                    alphabetSoup.get(row).set(col, " ");
+                                }
+                                wardremove--;
+                            }
+                        }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
+
                 } else if (randomchoice == 8) { // diag down left
 
-                    int r = random.nextInt(dictionary.size());
-                    String word = dictionary.get(r);
                     limity = word.length() + row;
                     limitx = col - word.length();
 
-
                     if ((limity <= alphabetSoup.size() && limitx >= 0)) {
-                        ArrayList<Character> realword = new ArrayList<Character>();
-                        for (int i = 0; i < word.length(); i++) {
-                            realword.add(word.charAt(i));
-                        }
+
                         for (char c : realword) {
                             if (alphabetSoup.get(row).get(col).equals(" ") || alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                if (alphabetSoup.get(row).get(col).equals(String.valueOf(c))) {
+                                    samepos.add(new ArrayList<>());
+                                    samepos.get(samepos.size() - 1).add(row);
+                                    samepos.get(samepos.size() - 1).add(col);
+                                }
                                 alphabetSoup.get(row).set(col, String.valueOf(c));
                                 row++;
                                 col--;
-                                ward++;
-                            }
-                            if (ward == word.length()) {
-                                partialSolutions.add(word);
-                                dictionary.remove(word);
+                                ward += String.valueOf(c);
+                                wardremove++;
                             }
                         }
+                        if (word.equals(ward) && !partialSolutions.contains(word)) {
+                            partialSolutions.add(word);
+                            dictionary.remove(word);
+                            setWords();
+                        } else {
+                            while (wardremove != 0) {
+                                row--;
+                                col++;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag){
+                                                break;
+                                            }
+                                        }
+                                    } if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    } wardremove--;
+                                }
+                            }
+                            setWords();
+                        }
+                    } else {
+                        setWords();
                     }
-                    setWords();
                 }
+                setWords();
             }
-        } catch (Exception e) {
+        } catch (StackOverflowError e) {
             setWords();
         }
     }
