@@ -19,16 +19,16 @@ public class Main{
 
     public static void main(String[] args) throws FileNotFoundException {
         Main m = new Main();
+        welcome();
         m.menu();
     }
 
     public void menu(){
         userSolutions = new ArrayList<>();
-        welcome();
         whilePlaying(showMenuOptions());
     }
 
-    public void welcome(){
+    public static void welcome(){
 
         System.out.println("********************************************************************************************************************\n");
         System.out.println("*    WWWW                  WWWW    EEEEEEEE   LLL        CCCCCCCC    OOOOOOOOO    MMMMMM     MMMMMM    EEEEEEEE    *");
@@ -44,7 +44,7 @@ public class Main{
         ArrayList<Integer> options = new ArrayList<>();
         while (true){
             try{
-                System.out.println("Choose the level you want to play ");
+                System.out.println("\nChoose the level you want to play ");
                 System.out.println("1. Basic Level");
                 System.out.println("2. Intermediate Level");
                 System.out.println("3. Advanced Level ");

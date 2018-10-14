@@ -9,7 +9,7 @@ public class AlphabetSoup {
 
     private final static ArrayList<Integer> BASIC = new ArrayList<>(Arrays.asList(5, 10));
     private final static ArrayList<Integer> INTERMEDIUM = new ArrayList<>(Arrays.asList(10, 15));
-    private final static ArrayList<Integer> ADVANCED = new ArrayList<>(Arrays.asList(20,20));
+    private final static ArrayList<Integer> ADVANCED = new ArrayList<>(Arrays.asList(20, 20));
     private final static String BASICD = "BASIC";
     private final static String INTERMEDIUMD = "INTERMEDIUM";
     private final static String ADVANCEDD = "ADVANCED";
@@ -101,13 +101,13 @@ public class AlphabetSoup {
             e.printStackTrace();
         } finally {
             try {
-                if (br != null){
+                if (br != null) {
                     br.close();
                 }
-                if (br2 != null){
+                if (br2 != null) {
                     br.close();
                 }
-            } catch (IOException io){
+            } catch (IOException io) {
                 io.printStackTrace();
             }
         }
@@ -117,17 +117,31 @@ public class AlphabetSoup {
 
         int l = 0;
         int w = 0;
-        System.out.print("\n");
-        System.out.print("||  ");
-        while (l < getSize()) { System.out.print(alphabetSoup.get(l).get(w) + "  ");
+        System.out.print("\n" + "       ");
+        for (int i = 0; i < getSize(); i++) {
+            if (i < 9) {
+                System.out.print((i + 1) + "  ");
+            } else {
+                System.out.print((i + 1) + " ");
+
+            }
+        }
+        System.out.print("\n\n");
+        System.out.print(1 + "  ||  ");
+        while (l < getSize()) {
+            System.out.print(alphabetSoup.get(l).get(w) + "  ");
             w++;
             if (w % getSize() == 0) {
                 l++;
                 w = 0;
                 System.out.print("||");
                 System.out.print("\n");
-                if (l < getSize()){
-                    System.out.print("||  ");
+                if (l < getSize()) {
+                    if (l < 9) {
+                        System.out.print((l + 1) + "  ||  ");
+                    } else {
+                        System.out.print((l + 1) + " ||  ");
+                    }
                 }
             }
         }
@@ -149,7 +163,6 @@ public class AlphabetSoup {
         for (int i = 0; i < word.length(); i++) {
             realword.add(word.charAt(i));
         }
-
         try {
             while (partialSolutions.size() < getRequiredWords()) {
 
@@ -188,15 +201,13 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
-                                    }
-                                    if (!flag) {
+                                    } if (!flag) {
                                         alphabetSoup.get(row).set(col, " ");
-                                    }
-                                    wardremove--;
+                                    } wardremove--;
                                 }
                             }
                             setWords();
@@ -237,7 +248,7 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
@@ -285,7 +296,7 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
@@ -333,7 +344,7 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
@@ -382,7 +393,7 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
@@ -433,7 +444,7 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
@@ -475,25 +486,26 @@ public class AlphabetSoup {
                             partialSolutions.add(word);
                             dictionary.remove(word);
                             setWords();
-                        } else { while (wardremove != 0) {
-                            row--;
-                            col--;
-                            boolean flag = false;
-                            if (!alphabetSoup.get(row).get(col).equals(" ")) {
-                                for (ArrayList<Integer> v : samepos) {
-                                    if (v.get(0) == row && v.get(1) == col) {
-                                        flag = true;
-                                        if (flag){
-                                            break;
+                        } else {
+                            while (wardremove != 0) {
+                                row--;
+                                col--;
+                                boolean flag = false;
+                                if (!alphabetSoup.get(row).get(col).equals(" ")) {
+                                    for (ArrayList<Integer> v : samepos) {
+                                        if (v.get(0) == row && v.get(1) == col) {
+                                            flag = true;
+                                            if (flag) {
+                                                break;
+                                            }
                                         }
                                     }
+                                    if (!flag) {
+                                        alphabetSoup.get(row).set(col, " ");
+                                    }
+                                    wardremove--;
                                 }
-                                if (!flag) {
-                                    alphabetSoup.get(row).set(col, " ");
-                                }
-                                wardremove--;
                             }
-                        }
                             setWords();
                         }
                     } else {
@@ -534,13 +546,15 @@ public class AlphabetSoup {
                                     for (ArrayList<Integer> v : samepos) {
                                         if (v.get(0) == row && v.get(1) == col) {
                                             flag = true;
-                                            if (flag){
+                                            if (flag) {
                                                 break;
                                             }
                                         }
-                                    } if (!flag) {
+                                    }
+                                    if (!flag) {
                                         alphabetSoup.get(row).set(col, " ");
-                                    } wardremove--;
+                                    }
+                                    wardremove--;
                                 }
                             }
                             setWords();
@@ -556,27 +570,27 @@ public class AlphabetSoup {
         }
     }
 
-        public void setRandomLetters(){
+    public void setRandomLetters() {
 
-            int l = 0;
-            int w = 0;
+        int l = 0;
+        int w = 0;
 
-            while (l < getSize()) {
-                int r = random.nextInt(letters.size());
-                if (alphabetSoup.get(l).get(w).equals(" ")) {
-                    alphabetSoup.get(l).set(w, letters.get(r));
-                }
-                w++;
-                if (w % getSize() == 0) {
-                    l++;
-                    w = 0;
-                }
+        while (l < getSize()) {
+            int r = random.nextInt(letters.size());
+            if (alphabetSoup.get(l).get(w).equals(" ")) {
+                alphabetSoup.get(l).set(w, letters.get(r));
+            }
+            w++;
+            if (w % getSize() == 0) {
+                l++;
+                w = 0;
             }
         }
-
-        public ArrayList getPartialSolutions(){
-            return partialSolutions;
-        }
-
     }
+
+    public ArrayList getPartialSolutions() {
+        return partialSolutions;
+    }
+
+}
 
