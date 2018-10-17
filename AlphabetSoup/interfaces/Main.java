@@ -5,17 +5,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
 
-
+/**
+ * @version 0.00001 alpha
+ *
+ * @author Jean Alvarez (github.com/mikaelatomato)
+ *
+ * patch list:
+ *
+ * fixed some bugs and added new ones.
+ */
 public class Main{
 
-    private Scanner sc;
     private ArrayList<String> userSolutions = new ArrayList<>();
+    final static Scanner sc = new Scanner(System.in);
 
-
-    public Main(){
-        sc=new Scanner(System.in);
-
-    }
 
     public static void main(String[] args) throws FileNotFoundException {
         Main m = new Main();
@@ -28,18 +31,20 @@ public class Main{
         whilePlaying(showMenuOptions());
     }
 
-    public static void welcome(){
+    /**
+     * So, i wanted to do a good fucking looking art here, but, i'm lazy, and i'm not good at that tbh, so...")
+     * this method just prints this.
+     *
+     */
 
-        System.out.println("********************************************************************************************************************\n");
-        System.out.println("*    WWWW                  WWWW    EEEEEEEE   LLL        CCCCCCCC    OOOOOOOOO    MMMMMM     MMMMMM    EEEEEEEE    *");
-        System.out.println("*     WWW                 WWW      EEE        LLL        CCC         OOO   OOO    MMM  MMM MMM  MMM    EEE         *");
-        System.out.println("*      WWW               WWW       EEE        LLL        CCC         OOO   OOO    MMM    MMM    MMM    EEE         *");
-        System.out.println("*       WWW    WWWWW    WWW        EEEEEEEE   LLL        CCC         OOO   OOO    MMM           MMM    EEEEEEEE    *");
-        System.out.println("*        WWW  WW   WW  WWW         EEE        LLL        CCC         OOO   OOO    MMM           MMM    EEE         *");
-        System.out.println("*         WWWWW     WWWWW          EEEEEEEE   LLLLLLLL   CCCCCCCC    OOOOOOOOO    MMM           MMM    EEEEEEEE    *");
-        System.out.println("********************************************************************************************************************\n");
+    public static void welcome() {
+        System.out.print("Let's play together! | Letter (Alphabet) Soup\n\n");
     }
 
+    /**
+     * This method takes the 'options' for the letter soup that is going to be generated.
+     * @return an array containing the values to create a letter soup.
+     */
     public ArrayList<Integer> showMenuOptions(){
         ArrayList<Integer> options = new ArrayList<>();
         while (true){
@@ -87,6 +92,17 @@ public class Main{
 
     }
 
+    /**
+     * This method starts the game.
+     *
+     * pre: showMenuOptions was ran and we have a correct array of options to be used.
+     *
+     * pos: this keeps running while the player plays and takes care of him.
+     *
+     * @param options takes the options array and uses it to create the letter soup.
+     *
+     */
+
     public void whilePlaying(ArrayList<Integer> options){
         AlphabetSoup a = new AlphabetSoup(options.get(0), options.get(1));
         a.init();
@@ -105,7 +121,7 @@ public class Main{
                 a.getPartialSolutions().remove(userguess);
             } else if (userguess.equals("s")){
                 System.out.print("\n\nYou have surrendered :(\n");
-                System.out.print("The remaining words in soup were the next ones: " + a.getPartialSolutions());
+                System.out.print("The remaining words in soup were the next ones: " + a.getPartialSolutions() +"\nand you had: " + userSolutions);
                 System.out.print("\n\nWrite anything to leave.");
                 sc.next();
                 System.out.print("See you next time ;)");
