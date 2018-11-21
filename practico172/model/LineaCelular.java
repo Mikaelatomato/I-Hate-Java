@@ -12,7 +12,7 @@ public class LineaCelular extends LineaTelefonica{
 	@Override
 	public Double calcularCostoLlamadas(){
 		Double total = (this.minutosACelular*1.0) * COSTO_MINUTO_CELULAR;
-		total += (this.minutosLocales*1.0) * COSTO_MINUTO_CELULAR;
+		total += (this.minutosLocales*1.0) * COSTO_MINUTO_LOCAL;
 		return total;
 	}
 }
